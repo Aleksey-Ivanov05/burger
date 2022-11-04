@@ -3,3 +3,9 @@ interface Ingredient {
   price: number,
   image: string,
 }
+
+interface IngredientCount {
+  name: string,
+  count: number,
+  id: number
+}

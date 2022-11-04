@@ -4,6 +4,8 @@ import saladImage from './assets/saladImage.png';
 import cheeseImage from './assets/cheeseImage.png';
 import baconImage from './assets/baconImage.png';
 import Ingredient from "./components/Ingredient/Ingredient";
+import Ingredients from "./components/Ingredients/Ingredients";
+import Burger from "./components/Burger/Burger";
 
 
 function App() {
@@ -15,10 +17,10 @@ function App() {
   ];
 
   const [ingredients, setIngredients] = useState([
-    {name: 'Salad', count: 0, id: 1},
-    {name: 'Cheese', count: 0, id: 2},
+    {name: 'Salad', count: 1, id: 1},
+    {name: 'Cheese', count: 1, id: 2},
     {name: 'Bacon', count: 0, id: 3},
-    {name: 'Meat', count: 0, id: 4},
+    {name: 'Meat', count: 1, id: 4},
   ]);
 
   const onAdd = (id: number) => {
@@ -47,46 +49,11 @@ function App() {
     setIngredients(ingredientsCopy);
   };
 
-  const ingredientPictures: string[] = [];
-
-  ingredients.forEach(ingredient => {
-    for (let i = 0; i < ingredient.count; i++) {
-      ingredientPictures.push(ingredient.name);
-    }
-  })
-
-  const totalPrice = ingredients.reduce((acc, item, i) => {
-    return acc + item.count*INGREDIENTS[i].price;
-  }, 0);
-
   return (
     <div className="container">
       <div className="row align-items-center mt-3">
-        <div className="col-5 border border-1 border-dark me-3 p-3" >
-          {INGREDIENTS.map((ingredient, i) => (
-            <Ingredient
-              key={ingredients[i].id}
-              name={ingredient.name}
-              count={ingredients[i].count}
-              image={ingredient.image}
-              onNameClick={() => onAdd(ingredients[i].id)}
-              onDelete={() => onDelete(ingredients[i].id)}
-            />
-          ))}
-        </div>
-        <div className="col-5 border border-1 border-dark pt-5">
-          <div className="Burger">
-            <div className="BreadTop">
-              <div className="Seeds1"></div>
-              <div className="Seeds2"></div>
-            </div>
-            {ingredientPictures.map(name => (
-              <div className={name}></div>
-            ))}
-            <div className="BreadBottom"></div>
-          </div>
-          <div className="text-center mt-4"><strong>Price: {totalPrice + 30} KGZ</strong></div>
-        </div>
+        <Ingredients INGREDIENTS={INGREDIENTS} ingredients={ingredients} onAdd={onAdd} onDelete={onDelete}/>
+        <Burger INGREDIENTS={INGREDIENTS} ingredients={ingredients}/>
       </div>
     </div>
   );
