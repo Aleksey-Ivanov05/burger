@@ -3,19 +3,21 @@ import React from 'react';
 interface Props {
   name: string,
   image: string,
-  count: number
+  count: number,
+  onNameClick: React.MouseEventHandler,
+  onDelete: React.MouseEventHandler
 }
 
-const Ingredient: React.FC<Props> = ({name, count,image}) => {
+const Ingredient: React.FC<Props> = ({name, count,image, onNameClick, onDelete}) => {
   return (
     <div className="row mb-2 justify-content-between">
       <div className="col-2">
         <img src={image} className="border-1 border border-dark" width="50" height="50"/>
       </div>
-      <div className="col-2 mt-3">{name}</div>
+      <div className="col-2 mt-3" onClick={onNameClick}>{name}</div>
       <div className="col-2 mt-3">x{count}</div>
       <div className="col-2 mt-3">
-        <button>
+        <button onClick={onDelete}>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash"
                viewBox="0 0 16 16">
             <path
